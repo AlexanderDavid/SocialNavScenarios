@@ -1,0 +1,147 @@
+% Intended LaTeX compiler: pdflatex
+\documentclass[conference,letter,10pt,final]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\date{}
+\title{Social Navigation Evaluation Scenarios and Why They're Kinda Bogus}
+\hypersetup{
+ pdfauthor={Alex Day},
+ pdftitle={Social Navigation Evaluation Scenarios and Why They're Kinda Bogus},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.2 (Org mode 9.5)}, 
+ pdflang={Brazilian}}
+\begin{document}
+
+
+\makeatletter
+\let\orgtitle\@title
+\makeatother
+
+\title{\orgtitle}
+
+\author{
+\IEEEauthorblockN{Alex Day}
+
+\IEEEauthorblockA{School of Computing, Clemson University}
+
+}
+
+\maketitle
+
+\begin{abstract}
+
+Put the abstract here.
+
+\end{abstract}
+
+\section{Introduction}
+\label{sec:org8b7aafd}
+
+This paper is organized as follows: section \ref{sec.background} presents the background and current evaluation techniques.
+
+\section{Background}
+\label{sec.background}
+Social navigation algorithms aim to solve a path planning problem in a scenario
+both humans and robots. The introduction of human agents radically changes the
+objectives of, and, consequentially, the methods for evaluating, these algorithms.
+The main goal shifts from maximizing the global efficiency of all agents to
+avoiding excessive interaction with and hindrance of the human agents.
+
+\begin{itemize}
+\item SNA solve a modified path planning problem
+\begin{itemize}
+\item Heterogeneous simulation (human and robits)
+\item This changes the game completely for evaluation
+\begin{itemize}
+\item Previous Goal: Maximize global efficiency
+\item New Goal: Don't mess with the humans but still get to your goal fast
+\end{itemize}
+\item Current approaches
+\begin{itemize}
+\item DRL
+\begin{itemize}
+\item \cite{chen2017socially}
+\end{itemize}
+\item DL
+\begin{itemize}
+\item NaviGAN
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+Methods of evaluation for social navigation algorithms can be broadly separated
+into three distinct classes. The first is to utilize existing pedestrian
+interaction datasets. The agents initial positions are set to the pedestrian
+positions at some time \(\tau\). As the both the agents and pedestrians positions
+progress as time goes on the difference between the two can be measured. This
+can be thought of as a measure of how human-like the agents movements are. This
+is attractive method because there is a wealth of pedestrian data online.
+However, the pedestrians in these datasets are not in the mindset of interacting
+with robots, therefore the results from this measure might not map directly to
+the goodness of an algorithm.
+
+\begin{itemize}
+\item Simulation Techniques
+\begin{itemize}
+\item Utilizing existing pedestrian-pedestrian interaction
+\begin{itemize}
+\item Datasets are widely available
+\item Deterministic metrics for evaluation (same trajectories each time)
+\item Pedestrians are trying to interact with pedestrians, vibes are all wrong
+\item \cite{yao19following}
+\end{itemize}
+\end{itemize}
+\item Completely simulating pedestrians
+\begin{itemize}
+\item Can run trials until your CPU explodes
+\item Dependent on how good your pedestrian algorithms are and how realistic the simulation is
+\end{itemize}
+\item Using real humans to interact, even in simulation or real life
+\begin{itemize}
+\item Ideal
+\end{itemize}
+
+\item Datasets are required, no matter the technique choice
+\begin{itemize}
+\item Crowd datasets are required for 1. and there is a finite amount
+\item For the last two
+\begin{itemize}
+\item Realistic start and goal positions are required
+\item Hypothesis: These start and goal positions are normally bogus
+\begin{itemize}
+\item Circle is bogus
+\item Two groups not much better
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\subsection{Human in the Loop}
+\label{sec:orgfff1880}
+\cite{tsoi20seanep}
+
+\subsection{Simulation}
+\label{sec:org3f2030d}
+Evaluating the navigation algorithm in the presence of simulated  \cite{tsoi20sean}
+**
+
+\section{Conclusion}
+\label{sec:org3669fc5}
+\bibliographystyle{IEEEtran}
+\bibliography{../../org/notes/papers/references}
+\end{document}

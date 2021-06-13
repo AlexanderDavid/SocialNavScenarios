@@ -1,0 +1,163 @@
+# -*- coding: utf-8 -*-
+# -*- mode: org -*-
+
+#+TITLE: Social Navigation Evaluation Scenarios and Why They're Kinda Bogus
+#+AUTHOR: Alex Day
+
+#+STARTUP: overview indent
+#+LANGUAGE: pt-br
+#+OPTIONS: H:3 creator:nil timestamp:nil skip:nil toc:nil num:t ^:nil ~:~
+#+OPTIONS: author:nil title:nil date:nil
+#+TAGS: noexport(n) deprecated(d) ignore(i)
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+#+LATEX_CLASS: IEEEtran
+#+LATEX_CLASS_OPTIONS: [conference,letter,10pt,final]
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+
+# You need at least Org 9 and Emacs 24 to make this work.
+# If you do, just type make (thanks Luka Stanisic for this).
+
+* IEEETran configuration for org export + ignore tag (Start Here)  :noexport:
+
+#+begin_src emacs-lisp :results output :session :exports both
+(add-to-list 'load-path ".")
+(require 'ox-extra)
+(ox-extras-activate '(ignore-headlines))
+(add-to-list 'org-latex-classes
+             '("IEEEtran"
+               "\\documentclass{IEEEtran}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+#+end_src
+
+#+RESULTS:
+
+* *The Paper*                                                       :ignore:
+** Latex configurations                                             :ignore:
+** Frontpage                                                        :ignore:
+#+BEGIN_EXPORT latex
+\makeatletter
+\let\orgtitle\@title
+\makeatother
+
+\title{\orgtitle}
+
+\author{
+\IEEEauthorblockN{Alex Day}
+
+\IEEEauthorblockA{School of Computing, Clemson University}
+
+}
+#+END_EXPORT
+
+#+LaTeX: \maketitle
+
+** Abstract                                                         :ignore:
+
+#+LaTeX: \begin{abstract}
+
+Put the abstract here.
+
+#+LaTeX: \end{abstract}
+
+** Introduction
+
+This paper is organized as follows: section [[#sec.background]] presents the background and current evaluation techniques.
+
+** Background
+:PROPERTIES:
+:CUSTOM_ID: sec.background
+:END:
+Social navigation algorithms aim to solve a path planning problem in a scenario
+both humans and robots. The introduction of human agents radically changes the
+objectives of, and, consequentially, the methods for evaluating, these algorithms.
+The main goal shifts from maximizing the global efficiency of all agents to
+avoiding excessive interaction with and hindrance of the human agents.
+
+- SNA solve a modified path planning problem
+  + Heterogeneous simulation (human and robits)
+  + This changes the game completely for evaluation
+    - Previous Goal: Maximize global efficiency
+    - New Goal: Don't mess with the humans but still get to your goal fast
+  + Current approaches
+    - DRL
+      + cite:chen2017socially
+    - DL
+      + NaviGAN
+
+Methods of evaluation for social navigation algorithms can be broadly separated
+into three distinct classes. The first is to utilize existing pedestrian
+interaction datasets. The agents initial positions are set to the pedestrian
+positions at some time $\tau$. As the both the agents and pedestrians positions
+progress as time goes on the difference between the two can be measured. This
+can be thought of as a measure of how human-like the agents movements are. This
+is attractive method because there is a wealth of pedestrian data online.
+However, the pedestrians in these datasets are not in the mindset of interacting
+with robots, therefore the results from this measure might not map directly to
+the goodness of an algorithm. Examples: cite:yao19following.
+
+A more true to life method would be to use intelligent simulation of pedestrians
+such as Powerlaw cite:karamouzas2014universal rather than recorded data. This
+has the benefit of allowing the calculation of more complex metrics. These metrics
+are able to closer describe how good an algorithm is at interacting with humans.
+Although, this technique suffers from a similar problem to pedestrian datasets
+as most of the pedestrian simulation algorithms rely on human data that wasn't
+collected with human-robot interaction in mind.
+
+The final method solves this common problem. Real time human interaction, either
+in simulation or in real life, allows evaluation within the same settings as it
+will be deployed. The only downside to this technique is that it requires
+human-in-the-loop testing which can be both time and resource intensive.
+
+- Simulation Techniques
+  + Utilizing existing pedestrian-pedestrian interaction
+    - Datasets are widely available
+    - Deterministic metrics for evaluation (same trajectories each time)
+    - Pedestrians are trying to interact with pedestrians, vibes are all wrong
+    - cite:yao19following
+- Completely simulating pedestrians
+  + Can run trials until your CPU explodes
+  + Dependent on how good your pedestrian algorithms are and how realistic the simulation is
+- Using real humans to interact, even in simulation or real life
+  + Ideal
+
+- Datasets are required, no matter the technique choice
+  + Crowd datasets are required for 1. and there is a finite amount
+  + For the last two
+    - Realistic start and goal positions are required
+    - Hypothesis: These start and goal positions are normally bogus
+      + Circle is bogus
+      + Two groups not much better
+
+*** Human in the Loop
+cite:tsoi20seanep
+
+*** Simulation
+Evaluating the navigation algorithm in the presence of simulated  cite:tsoi20sean
+**
+
+** Conclusion
+** References                                    :ignore:
+
+# See next section to understand how refs.bib file is created.
+
+[[bibliographystyle:IEEEtran]]
+[[bibliography:~/doc/org/notes/papers/references.bib]]
+
+
+* Emacs setup                                                      :noexport:
+# Local Variables:
+# eval: (add-to-list 'load-path ".")
+# eval: (require 'ox-extra)
+# eval: (ox-extras-activate '(ignore-headlines))
+# eval: (require 'org-ref)
+# eval: (require 'doi-utils)
+# eval: (setq org-latex-pdf-process (list "latexmk -pdf %f"))
+# eval: (add-to-list 'org-export-before-processing-hook (lambda (be) (org-babel-tangle)))
+# End:
